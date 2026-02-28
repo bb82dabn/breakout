@@ -1,81 +1,80 @@
-# breakout
+# Breakout
 
-> A simple Breakout game for casual gamers, built with HTML5 Canvas and Docker
+A classic brick-breaking game with a synthwave neon aesthetic, built entirely in a single HTML file. Runs in any browser, deploys with Docker.
 
-## Stack
-
-- Docker
-- Nginx
-- HTML5 Canvas
-- JavaScript
-- CSS
-- Alpine Linux
-
-## Description
-
-Breakout is a classic arcade-style game where players control a paddle to bounce a ball and destroy bricks. Built with HTML5 Canvas and Docker, it's ideal for casual gamers looking for a nostalgic yet modern gaming experience. The game features a responsive dark theme with neon accents and includes score tracking, lives system, and restart functionality.
+Play it, or let the built-in Q-learning AI bot play it for you.
 
 ## Features
 
-- ✅ HTML5 Canvas-based game with paddle, ball, and brick mechanics
-- ✅ Responsive UI with dark theme and neon accents
-- ✅ Docker containerization for easy deployment
-- ✅ Score tracking and lives system
-- ✅ Restart functionality and game state management
-- ✅ Custom CSS styling for modern visual effects
-- ✅ Mobile-friendly layout with responsive design
+**Gameplay**
+- Paddle control via mouse, touch, or arrow keys
+- Ball physics with angle-based paddle deflection
+- 12-column brick grid with color-coded rows and point values
+- Progressive difficulty across levels (more rows, faster ball)
+- Score tracking, lives system, level progression
 
-## Tech Stack
+**Visuals**
+- Synthwave perspective grid background
+- Neon glow effects on bricks, paddle, and ball
+- Ball trail with fade-out
+- Orbitron font, pink/cyan/purple color palette
+- Scanline overlay for a retro CRT feel
 
-| Technology       | Role                     |
-|------------------|--------------------------|
-| Nginx            | Web server and reverse proxy |
-| Docker           | Containerization         |
-| HTML5 Canvas     | Game rendering           |
-| JavaScript       | Game logic and interactivity |
-| CSS              | Styling and animations   |
-| Alpine Linux     | Base image for Docker container |
+**Audio**
+- Two embedded synth music tracks (no external files needed)
+- Sound effects for brick hits, paddle bounces, wall hits, level clear, life lost, game over
+- Independent mute controls for music and SFX
+- Track switching mid-game
 
-## Architecture
+**Settings**
+- Ball speed (3-9)
+- Speed ramp per level (0-1)
+- Paddle width (60-200px)
+- Brick rows (2-10)
 
-The project uses a monorepo structure with frontend assets served by Nginx in a Docker container. The Dockerfile configures Nginx to serve static files from the project directory, with custom configuration in `nginx.conf`. The game logic is implemented in `game.js` and styled with `styles.css`, both served as static assets. The `index.html` file provides the game interface and integrates all components.
+**AI Bot**
+- Q-learning agent that teaches itself to play
+- Configurable training runs (1-9999 games)
+- Live stats: games played, epsilon, average score, best score
+- Rolling score chart showing learning progress
+- Toggle on/off mid-game
 
-## Prerequisites
+## Run it
 
-- Docker 20.10+
-- Docker Compose 1.29+
-- Git (for cloning the repository)
-
-## Installation & Setup
-
+### With Docker (recommended)
 ```bash
-git clone https://github.com/your-username/breakout.git
+git clone https://github.com/bb82dabn/breakout.git
 cd breakout
 docker compose up -d
 ```
+Open `http://localhost:3456`
 
-## Running
+### Without Docker
+Just open `index.html` in a browser. That's it — everything is in one file.
 
-### Development
-```bash
-docker compose up
-```
+## Architecture
 
-### Production
-```bash
-docker compose up -d
-```
+The entire game lives in `index.html`:
+- **CSS**: Neon color variables, glow effects, overlay styling, responsive layout
+- **Canvas**: 840x500 HTML5 Canvas with custom rendering (synthwave grid, glowing bricks, ball trails)
+- **Game engine**: Physics, collision detection, level progression, game state machine
+- **Audio**: SFX and music tracks encoded as base64 WAV, embedded directly in JS
+- **AI**: Q-learning bot with discretized state space (20x15 ball position, 2x2 ball direction, 20 paddle positions)
+- **Docker**: Nginx on Alpine Linux serving static files
 
-## Docker
+No build step. No dependencies. No frameworks.
 
-```bash
-docker compose up -d
-```
+## Controls
 
-## API Overview
+| Input | Action |
+|---|---|
+| Mouse / Touch | Move paddle |
+| Arrow keys | Move paddle |
+| Play button | Start / restart / next level |
+| Mute button | Toggle music |
+| Track button | Switch music track |
+| Bot button | Toggle AI auto-play |
 
-This project does not include a backend API. It is a single-page application (SPA) that serves static files via Nginx.
+## License
 
-## Environment Variables
-
-No environment variables are required for this project. All configuration is handled through the Dockerfile and `nginx.conf`.
+MIT
