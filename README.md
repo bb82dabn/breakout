@@ -91,7 +91,7 @@ Common Docker Compose commands:
   docker compose up -d
   ```
 
-- Stop and remove container:
+- Stop container:
 
   ```bash
   docker compose down
@@ -100,7 +100,7 @@ Common Docker Compose commands:
 - View container logs:
 
   ```bash
-  docker logs breakout
+  docker compose logs -f
   ```
 
 ## API Overview
@@ -109,4 +109,17 @@ This project does not include a backend API. All game logic runs client-side in 
 
 ## Environment Variables
 
-This project does not require or use any environment variables.
+This project does not require or use any environment variables. Configuration is static and embedded in the Dockerfile and Nginx config.
+
+---
+
+# Additional Notes
+
+- The game canvas element has the ID `gameCanvas`.
+- HUD elements include `score`, `lives`, `status`, and a restart button with ID `restart`.
+- Paddle movement supports keyboard arrow keys and mouse/touch dragging.
+- The brick grid is dynamically generated with 5 rows and 10 columns.
+- Scoring increments by 10 points per brick destroyed.
+- The player starts with 3 lives; the game ends when lives reach zero.
+- The Nginx configuration disables the default site and serves the static files from `/usr/share/nginx/html`.
+- The Dockerfile uses `nginx:stable-alpine` as the base image for minimal footprint and security.
