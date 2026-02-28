@@ -10,6 +10,7 @@
 - Stop: `docker compose down`
 
 ## Recent Commits
+- fed7ab4 docs: add Alpine Linux to README and update .gp/context.md timestamp
 - b1e6ea3 chore: update auto-generated timestamp in .gp/context.md
 - 3ac5662 chore: auto-save 10:07
 - f1c2cf4 docs: add AI-generated README
