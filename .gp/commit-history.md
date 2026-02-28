@@ -40,3 +40,4 @@
 - 2026-02-28 22:07:56 — chore: update auto-generated timestamp in .gp/context.md to 17:02
 - 2026-02-28 22:18:27 — chore: update auto-generated timestamp in .gp/context.md to 17:13
 - 2026-02-28 22:28:57 — chore: update auto-generated timestamp in .gp/context.md to 17:23
+- 2026-02-28 22:34:12 — docs: update README and .gp docs with new context and commit history
