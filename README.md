@@ -4,50 +4,55 @@ A classic brick-breaking arcade game served via Docker, playable in any modern b
 
 ## Description
 
-Breakout is a browser-based implementation of the classic brick-breaking game, featuring paddle control, ball physics, and multiple rows of colorful bricks. It solves the problem of providing a lightweight, visually appealing, and easily deployable retro game experience using only static assets served by Nginx in a Docker container.
+Breakout is a browser-based implementation of the classic brick-breaking game featuring paddle control, ball physics, and multiple rows of colorful bricks. It provides a lightweight, visually appealing retro game experience served as static assets by Nginx inside a Docker container, enabling easy deployment and play on any modern web browser.
 
 ## Features
 
 - Single-page game playable in any modern browser
-- Paddle control via mouse, touch, and keyboard arrow keys
+- Paddle control via keyboard arrow keys, mouse drag, and touch input
 - Ball physics with angle-based deflection on paddle hits
-- 5 rows × 10 columns of color-coded bricks with collision detection
-- Score tracking and lives system (3 lives)
-- Restart button to reset the game state
+- 5 rows × 10 columns of color-coded bricks with collision detection and scoring
+- Score tracking and a 3-lives system
+- Restart button to reset the game state at any time
 - Synthwave neon aesthetic with glowing bricks, paddle, and ball
-- Responsive canvas layout with scanline overlay effect
+- Responsive canvas layout with a scanline overlay effect for retro feel
 - Static asset serving via Nginx in a lightweight Alpine Linux Docker container
+- Custom Nginx configuration replacing default server settings
+- Docker Compose setup exposing the game on host port 3456
 
 ## Tech Stack
 
-| Technology       | Role                          |
-|------------------|-------------------------------|
-| HTML5 Canvas     | Game rendering and UI          |
-| JavaScript       | Game logic, physics, input handling |
-| CSS              | Styling and neon visual effects |
-| Nginx (stable-alpine) | Static file web server inside Docker |
-| Docker           | Containerization and deployment |
+| Technology           | Role                                   |
+|---------------------|---------------------------------------|
+| HTML5 Canvas        | Game rendering and UI                  |
+| JavaScript          | Game logic, physics, input handling   |
+| CSS                 | Styling and neon visual effects        |
+| Nginx (stable-alpine) | Static file web server inside Docker  |
+| Docker              | Containerization and deployment        |
+| Docker Compose      | Multi-container orchestration (single service here) |
 
 ## Architecture
 
-The project consists of a single-page frontend game (`index.html`, `styles.css`, `game.js`) served as static files by an Nginx web server running inside a Docker container. The Dockerfile builds the container by copying the custom Nginx configuration and game assets into the image. The `docker-compose.yml` file defines a single service exposing port 3456 on the host, forwarding to port 80 inside the container.
+The project is a static frontend game served by an Nginx web server running inside a Docker container:
 
-- `index.html`: Main game page with embedded canvas and UI elements
-- `styles.css`: Styling for neon synthwave theme and layout
-- `game.js`: Game logic including paddle, ball, bricks, collision detection, scoring, and input handling
-- `nginx.conf`: Custom Nginx configuration serving static files
-- `Dockerfile`: Builds the Nginx container image with game files
-- `docker-compose.yml`: Defines and runs the container with port mapping
+- `index.html`: Main HTML page containing the canvas element and UI layout
+- `styles.css`: Stylesheet implementing the neon synthwave theme and responsive layout
+- `game.js`: JavaScript file handling game logic, including paddle movement, ball physics, brick grid creation, collision detection, scoring, lives, and restart functionality
+- `nginx.conf`: Custom Nginx configuration file replacing the default to serve static files from `/usr/share/nginx/html`
+- `Dockerfile`: Builds the Docker image based on `nginx:stable-alpine`, copies the custom config and game assets
+- `docker-compose.yml`: Defines a single service `breakout` that builds the Docker image and exposes port 3456 on the host mapped to port 80 in the container
+
+The game runs entirely client-side in the browser; Nginx serves the static assets without any backend API.
 
 ## Prerequisites
 
-- Docker Engine 20.10+  
-- Docker Compose 1.29+  
-- Modern web browser (Chrome, Firefox, Edge, Safari)
+- Docker Engine version 20.10 or higher  
+- Docker Compose version 1.29 or higher  
+- Modern web browser (Chrome, Firefox, Edge, Safari) capable of running HTML5 Canvas and JavaScript ES6+
 
 ## Installation & Setup
 
-Clone the repository and start the container:
+Clone the repository and start the Docker container:
 
 ```bash
 git clone https://github.com/bb82dabn/breakout.git
@@ -55,25 +60,29 @@ cd breakout
 docker compose up -d
 ```
 
-This builds the Docker image using the provided Dockerfile and launches the container named `breakout`.
+This command builds the Docker image using the provided Dockerfile and launches the container named `breakout`.
 
 ## Running
 
 ### Development
 
-No explicit development server or build step exists. To test locally without Docker, simply open `index.html` in a modern browser.
+No build or development server is included. To test locally without Docker, open `index.html` directly in a modern browser.
 
 ### Production
 
-Run via Docker as described above. The game is served on `http://localhost:3456`.
+Run the game inside the Docker container as described above. Access the game at:
+
+```
+http://localhost:3456
+```
 
 ## Docker
 
-The project includes a `docker-compose.yml` file with the following service:
+The project includes a `docker-compose.yml` file defining the following service:
 
-- **breakout**: Builds from the local Dockerfile, runs Nginx serving the game on port 80 inside the container, mapped to port 3456 on the host.
+- **breakout**: Builds the Docker image from the local Dockerfile, runs Nginx serving the static game files on port 80 inside the container, mapped to port 3456 on the host machine.
 
-Commands:
+Common Docker Compose commands:
 
 - Start container in detached mode:
 
@@ -81,7 +90,7 @@ Commands:
   docker compose up -d
   ```
 
-- Stop container:
+- Stop and remove container:
 
   ```bash
   docker compose down
@@ -100,15 +109,3 @@ No backend API exists. The project is a static frontend game served by Nginx.
 ## Environment Variables
 
 No environment variables are used or required by this project.
-
----
-
-# Additional Notes
-
-- The game canvas is 840×500 pixels.
-- Paddle width is fixed at 140px.
-- The ball has a radius of 10px and moves with velocity components updated each animation frame.
-- The brick grid consists of 5 rows and 10 columns with padding and offset for layout.
-- The Nginx configuration replaces the default with a custom `nginx.conf` to serve the static files.
-- The Docker image is based on `nginx:stable-alpine` for minimal size and security.
-- The project includes a `before-bot.png` image asset (not referenced in code, likely for documentation or UI).
