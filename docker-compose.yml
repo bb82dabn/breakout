@@ -1,0 +1,7 @@
+services:
+  breakout:
+    build: .
+    container_name: breakout
+    ports:
+      - "3456:80"
+    restart: unless-stopped
