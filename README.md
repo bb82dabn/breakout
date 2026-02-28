@@ -105,21 +105,13 @@ Common Docker Compose commands:
 
 ## API Overview
 
-This project does not include a backend API. All game logic runs client-side in the browser.
+No backend API or dynamic server routes exist. The project serves static assets only:
+
+- `/` serves `index.html`
+- `/game.js` serves the game logic JavaScript
+- `/styles.css` serves the stylesheet
+- Nginx handles static file serving as configured in `nginx.conf`
 
 ## Environment Variables
 
-This project does not require or use any environment variables. Configuration is static and embedded in the Dockerfile and Nginx config.
-
----
-
-# Additional Notes
-
-- The game canvas element has the ID `gameCanvas`.
-- HUD elements include `score`, `lives`, `status`, and a restart button with ID `restart`.
-- Paddle movement supports keyboard arrow keys and mouse/touch dragging.
-- The brick grid is dynamically generated with 5 rows and 10 columns.
-- Scoring increments by 10 points per brick destroyed.
-- The player starts with 3 lives; the game ends when lives reach zero.
-- The Nginx configuration disables the default site and serves the static files from `/usr/share/nginx/html`.
-- The Dockerfile uses `nginx:stable-alpine` as the base image for minimal footprint and security.
+This project does not require or utilize any environment variables. All configuration is static and embedded in the Dockerfile and Nginx config.
