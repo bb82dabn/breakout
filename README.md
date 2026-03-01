@@ -100,18 +100,19 @@ Common Docker Compose commands:
 - View container logs:
 
   ```bash
-  docker compose logs -f
+  docker compose logs -f breakout
   ```
 
 ## API Overview
 
-This project does not include any backend API or dynamic routes. It serves static frontend assets only:
+No backend API or dynamic routes exist. The project serves only static assets:
 
 - `/` serves `index.html`
-- `/game.js` serves the JavaScript game logic
 - `/styles.css` serves the stylesheet
-- `nginx.conf` configures Nginx to serve these static files
+- `/game.js` serves the game logic script
+
+All routing is handled by Nginx to serve these static files.
 
 ## Environment Variables
 
-This project does not require or use any environment variables. All configuration is static and embedded in the Dockerfile and Nginx config.
+This project does not use any environment variables. Configuration is static within the Dockerfile and Nginx config.
