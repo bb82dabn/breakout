@@ -8,18 +8,18 @@ Breakout is a browser-based implementation of the classic brick-breaking game. I
 
 ## Features
 
-- Single-page game playable in any modern web browser
-- Paddle control via keyboard arrow keys, mouse dragging, and touch input
-- Ball physics with angle-based deflections upon paddle collisions
-- Brick grid of 5 rows × 10 columns with color-coded bricks and collision detection
-- Score tracking system awarding 10 points per brick destroyed
-- Three-lives system with game over and restart functionality
-- Restart button to reset the game state at any time
-- Synthwave neon aesthetic with glowing bricks, paddle, and ball
-- Responsive canvas layout with a scanline overlay effect for retro ambiance
-- Static asset serving by Nginx using a custom configuration (`nginx.conf`)
-- Dockerized deployment with Alpine-based Nginx container
-- Docker Compose setup exposing the game on host port 3456
+- Single-page game playable in any modern web browser  
+- Paddle control via keyboard arrow keys and mouse dragging  
+- Ball physics with angle-based deflections upon paddle collisions  
+- Brick grid of 5 rows × 10 columns with color-coded bricks and collision detection  
+- Score tracking system awarding 10 points per brick destroyed  
+- Three-lives system with game over and restart functionality  
+- Restart button to reset the game state at any time  
+- Synthwave neon aesthetic with glowing bricks, paddle, and ball  
+- Responsive canvas layout with a scanline overlay effect for retro ambiance  
+- Static asset serving by Nginx using a custom configuration (`nginx.conf`)  
+- Dockerized deployment with Alpine-based Nginx container  
+- Docker Compose setup exposing the game on host port 3456  
 
 ## Tech Stack
 
@@ -36,12 +36,12 @@ Breakout is a browser-based implementation of the classic brick-breaking game. I
 
 The project consists of a static frontend game served by an Nginx web server running inside a Docker container:
 
-- `index.html`: Main HTML page containing the canvas element, HUD (score, lives, status), and UI layout
-- `styles.css`: Stylesheet implementing the neon synthwave theme and responsive layout
-- `game.js`: JavaScript file handling game logic including paddle movement, ball physics, brick grid creation, collision detection, scoring, lives, and restart functionality
-- `nginx.conf`: Custom Nginx configuration replacing the default to serve static files from `/usr/share/nginx/html`
-- `Dockerfile`: Builds the Docker image based on `nginx:stable-alpine`, copies the custom config and game assets
-- `docker-compose.yml`: Defines a single service `breakout` that builds the Docker image and exposes port 3456 on the host mapped to port 80 in the container
+- `index.html`: Main HTML page containing the canvas element, HUD (score, lives, status), and UI layout  
+- `styles.css`: Stylesheet implementing the neon synthwave theme and responsive layout  
+- `game.js`: JavaScript file handling game logic including paddle movement, ball physics, brick grid creation, collision detection, scoring, lives, and restart functionality  
+- `nginx.conf`: Custom Nginx configuration replacing the default to serve static files from `/usr/share/nginx/html`  
+- `Dockerfile`: Builds the Docker image based on `nginx:stable-alpine`, copies the custom config and game assets  
+- `docker-compose.yml`: Defines a single service `breakout` that builds the Docker image and exposes port 3456 on the host mapped to port 80 in the container  
 
 The game runs entirely client-side in the browser; Nginx serves the static assets without any backend API or dynamic server logic.
 
@@ -100,19 +100,18 @@ Common Docker Compose commands:
 - View container logs:
 
   ```bash
-  docker compose logs -f breakout
+  docker compose logs -f
   ```
 
 ## API Overview
 
-No backend API or dynamic routes exist. The project serves only static assets:
+No backend API or server-side routes exist. The project serves static files only:
 
-- `/` serves `index.html`
-- `/styles.css` serves the stylesheet
-- `/game.js` serves the game logic script
-
-All routing is handled by Nginx to serve these static files.
+- `/` - Serves `index.html` and loads the game  
+- `/game.js` - JavaScript game logic  
+- `/styles.css` - Styling for the game  
+- `/nginx.conf` - Nginx configuration (not exposed externally)
 
 ## Environment Variables
 
-This project does not use any environment variables. Configuration is static within the Dockerfile and Nginx config.
+This project does not use any environment variables. All configuration is static and embedded in the Dockerfile and Nginx config.
