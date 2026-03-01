@@ -85,13 +85,13 @@ The project includes a `docker-compose.yml` file defining the following service:
 
 Common Docker Compose commands:
 
-- Start container in detached mode:
+- Start the container in detached mode:
 
   ```bash
   docker compose up -d
   ```
 
-- Stop container:
+- Stop the container:
 
   ```bash
   docker compose down
@@ -105,13 +105,8 @@ Common Docker Compose commands:
 
 ## API Overview
 
-No backend API or server-side routes exist. The project serves static files only:
-
-- `/` - Serves `index.html` and loads the game  
-- `/game.js` - JavaScript game logic  
-- `/styles.css` - Styling for the game  
-- `/nginx.conf` - Nginx configuration (not exposed externally)
+This project does not include any backend API or dynamic server logic. It serves static frontend assets only.
 
 ## Environment Variables
 
-This project does not use any environment variables. All configuration is static and embedded in the Dockerfile and Nginx config.
+This project does not require or use any environment variables. All configuration is static and embedded in the Dockerfile and Nginx configuration.
