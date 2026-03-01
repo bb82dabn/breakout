@@ -70,3 +70,4 @@
 - 2026-03-01 03:09:08 — chore: update auto-generated timestamp in .gp/context.md to 22:04
 - 2026-03-01 03:19:23 — chore: update auto-generated timestamp in .gp/context.md to 22:14
 - 2026-03-01 03:29:38 — chore: update auto-generated timestamp in .gp/context.md to 22:24
+- 2026-03-01 03:34:53 — docs: update README for clarity on Docker commands and API overview
